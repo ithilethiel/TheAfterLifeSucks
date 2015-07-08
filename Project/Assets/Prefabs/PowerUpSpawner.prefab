@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &153852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 486812}
+  - 114: {fileID: 11421978}
+  m_Layer: 0
+  m_Name: PowerUpSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &486812
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11421978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff113a960eabbd0498c60ca3776f2f89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPowerUpsOnScreen: 5
+  PowerUps_Hell:
+  - {fileID: 106748, guid: dd4fcc8ed6c04ed499de4061c11112a5, type: 2}
+  - {fileID: 122248, guid: fb5302c1dc5d0f44ea6ab555651d3498, type: 2}
+  - {fileID: 142116, guid: f10465652799f764a91ed7ed93d8d8fc, type: 2}
+  - {fileID: 101320, guid: db2b0dedfc7fa734bac683320d9b6973, type: 2}
+  PowerUps_Heaven:
+  - {fileID: 187670, guid: 7b0aa45b9eb52634ab7f09fbfc9df442, type: 2}
+  - {fileID: 196068, guid: 6fb18c9f56f58344d835ca05cc086c0a, type: 2}
+  - {fileID: 156682, guid: 3145f73cfd3d1fb43a7c41deb58f7774, type: 2}
+  - {fileID: 168596, guid: 4e6fff8d81d93e34cb2fd4b992b2c2b0, type: 2}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 153852}
+  m_IsPrefabParent: 1
