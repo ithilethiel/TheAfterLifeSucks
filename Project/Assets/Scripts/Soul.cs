@@ -97,7 +97,8 @@ public class Soul : MonoBehaviour {
 			// Calculo la fuerza en y
 			float dotRange = 1-playerStats.angleThreshold;									// de 0 (el dot minimo en el que deja de aplicar fuerza) a 1 (linea recta perfecta)
 			float normalizedDotAngle = (dotAngle - playerStats.angleThreshold)/dotRange; 	// calculo que valor representa el dot actual en la escala 0-1 del dotRange
-			forceY = playerStats.suckingPower * normalizedDotAngle/dist.y;
+			float suckingPower = (playerStats.isSucking) ? playerStats.suckingPower : 0;
+			forceY = suckingPower * normalizedDotAngle/dist.y;
 			
 			// Creo la fuerza con ambos componentes (x, y) y se la agrego al alma
 			Vector2 suckForce = new Vector2(forceX, forceY);

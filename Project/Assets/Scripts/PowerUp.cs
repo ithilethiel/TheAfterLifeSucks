@@ -111,7 +111,8 @@ public class PowerUp : MonoBehaviour {
 			// Calculo la fuerza en y
 			float dotRange = 1-angleThreshold;	// va de 0 (el dot minimo en el que deja de aplicar fuerza) a 1 (linea recta perfecta)
 			float normalizedDotAngle = (dotAngle - angleThreshold)/dotRange; // calculo que valor representa el dot actual en la escala 0-1 del angularRange
-			forceY = (playerStats.suckingPower * normalizedDotAngle/dist.y) * alignmentFactor;
+			float suckingPower = (playerStats.isSucking) ? playerStats.suckingPower : 0;
+			forceY = (suckingPower * normalizedDotAngle/dist.y) * alignmentFactor;
 			
 			// Calculo la fuerza en x
 			forceX = dist.x * normalizedDotAngle;
@@ -156,7 +157,8 @@ public class PowerUp : MonoBehaviour {
 	protected virtual void ThrownUpdate(){
 		// TODO logica de movimiento del power up al ser succionado solo por el enemigo
 		PlayerStats playerStats = players[enemyIndex].stats;
-		Vector2 suckForce = playerStats.transform.up * -playerStats.suckingPower * 1.1f; //FIXME ver que onda con la escupida o si se estackean powerUps
+		float suckingPower = (playerStats.isSucking) ? playerStats.suckingPower : 0;
+		Vector2 suckForce = playerStats.transform.up * -suckingPower * 1.1f; //FIXME ver que onda con la escupida o si se estackean powerUps
 		rigidBody.AddForce(suckForce);
 	}
 

@@ -138,31 +138,33 @@ public class Player : MonoBehaviour {
 	void CheckInput(){
 		playerInput.UpdateInput();
 
-		if(playerInput.A == UsefulButtonStates.Down){
-			Debug.Log("<color="+Utils.GetColor(celestialAlignment)+">Parar de succionar, A</color>");
-			stats.isSucking = false;
-			stats.suckingPower = 0;
-		}else if(playerInput.A == UsefulButtonStates.Up){
-			stats.isSucking = true;
-			stats.suckingPower = originalSuckPower;
-		}
-
+		// Arrojo algo?
 		if(playerInput.X == UsefulButtonStates.Down){
 			try{
 				Debug.Log("<color="+Utils.GetColor(celestialAlignment)+">Se arrojo un " + inventory.GetSelectedType()+"</color>");
 				inventory.GetAndRemoveSelected().Throw();
-//				inventory.RemoveSelected();
 			}catch(System.ArgumentOutOfRangeException){
 				Debug.Log("<color="+Utils.GetColor(celestialAlignment)+">No hay nada en el inventario</color>");
 			}
 		}
 
-		if(playerInput.B == UsefulButtonStates.Down){
+		// Dejo de aspirar?
+		if(playerInput.A == UsefulButtonStates.Down){
+			Debug.Log("<color="+Utils.GetColor(celestialAlignment)+">Parar de succionar, A</color>");
+			stats.isSucking = false;
+		}else if(playerInput.A == UsefulButtonStates.Up){
+			stats.isSucking = true;
+		}
+
+		// Solo sopla si no esta tapada
+		if(stats.isSucking && playerInput.B == UsefulButtonStates.Down){
 			Debug.Log("Soplar, B");
 			stats.suckingPower *= -1f;
-		}else if(playerInput.B == UsefulButtonStates.Up){
+			stats.isBlowing = true;
+		}else if(stats.isBlowing && playerInput.B == UsefulButtonStates.Up){
 			Debug.Log("NO Soplar, B");
 			stats.suckingPower *= -1f;
+			stats.isBlowing = false;
 		}
 
 		if(playerInput.Prev !=0)
@@ -204,17 +206,16 @@ public class PlayerStats {
 	public float moveSpeed = 15f;
 	public float suckingPower = 140f;
 	public float angleThreshold = 0.97f;
-	public bool canSuck = true;
 
-	public bool isSucking = true;
-	public Transform transform;
+	[HideInInspector] public bool canSuck = true;
+	[HideInInspector] public bool isSucking = true;
+	[HideInInspector] public bool isBlowing = false;
+	[HideInInspector] public Transform transform;
 }
 
 public class PlayerInput {
-	[HideInInspector]
-	public UsefulButtonStates A, B, X;
-	[HideInInspector]
-	public float Move, Prev, Next;
+	[HideInInspector] public UsefulButtonStates A, B, X;
+	[HideInInspector] public float Move, Prev, Next;
 
 	PlayerIndex playerIndex;
 	GamePadState state, prevState;
