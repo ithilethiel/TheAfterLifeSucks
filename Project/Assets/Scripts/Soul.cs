@@ -137,7 +137,8 @@ public class Soul : MonoBehaviour {
 				soulState = SoulState.IN_BETWEEN;
 				transform.position = new Vector3(transform.position.x, 0, 0);
 			}else if(Mathf.Abs(topRightCoords.y - transform.position.y) <= 0.5f){
-				GameOver(CelestialAlignment.HEAVEN);
+				// Lo agarro la aspiradora o paso por un costado?
+				EvaluateWinCondition(Game.heavenPlayerIndex, CelestialAlignment.HEAVEN);
 			}
 			break;
 		case SoulState.IN_HELL:
@@ -146,10 +147,23 @@ public class Soul : MonoBehaviour {
 				soulState = SoulState.IN_BETWEEN;
 				transform.position = new Vector3(transform.position.x, 0, 0);
 			}else if(Mathf.Abs(bottomLeftCoords.y - transform.position.y) <= 0.5f){
-				GameOver(CelestialAlignment.HELL);
+				// Lo agarro la aspiradora o paso por un costado?
+				EvaluateWinCondition(Game.hellPlayerIndex, CelestialAlignment.HELL);
 			}
 			break;
 		}		
+	}
+
+	void EvaluateWinCondition(int playerIndex, CelestialAlignment celestialAlignment){
+		if(Mathf.Abs(transform.position.x - players[playerIndex].stats.transform.position.x) < 0.5f){
+			GameOver(celestialAlignment);
+		}else{
+			// FIXME cambiar por algo no hardcodeado que dependa del height de soul
+			float correction = (celestialAlignment == CelestialAlignment.HEAVEN) ? -0.6f : 0.6f;
+//			transform.position = new Vector3(transform.position.x, bottomLeftCoords.y + correction, transform.position.z);
+//			rigidBody.velocity = Vector2.zero;
+			Debug.LogError("<color=purple>SE FUE A LA MIERDA</color>");
+		}
 	}
 
 	void GameOver(CelestialAlignment winner){

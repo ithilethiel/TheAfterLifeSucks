@@ -5,6 +5,7 @@ public class Game : MonoBehaviour {
 
 	public static GameManager gameManager;
 	public static Player[] players;
+	public static int hellPlayerIndex, heavenPlayerIndex;
 	public static Soul soul;
 	public static Bounds screen;
 	public static PowerUpSpawner spawner;
@@ -21,11 +22,17 @@ public class Game : MonoBehaviour {
 	}
 
 	void CacheReferences(){
+		// FIXME asegurarme de que solo lea dos? Quizas Tag "HellPlayer" y tag "HeavenPlayer"?
 		GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
 		if(gos.Length > 0){
 			players = new Player[gos.Length];
 			for(int i=0;i<gos.Length;++i){
 				players[i] = gos[i].GetComponent<Player>();
+				if(players[i].celestialAlignment == CelestialAlignment.HEAVEN){
+					heavenPlayerIndex = i;
+				}else{
+					hellPlayerIndex = i;
+				}
 			}
 		}
 		soul = GameObject.FindGameObjectWithTag("Soul").GetComponent<Soul>();
